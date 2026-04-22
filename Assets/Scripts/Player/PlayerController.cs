@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public int currentHP = 100;
+    public float currentHP = 100;
     public float speed = 5f;
     private PlayerInput playerInput;
     private Vector2 moveInput;
@@ -25,9 +25,18 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector3(h, v, 0) * speed * Time.deltaTime);
     }
 
-    void TakeDamage(int dmg)
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            TakeDamage(0.1f);
+        }
+    }
+
+    void TakeDamage(float dmg)
     {
         currentHP -= dmg;
+        Debug.Log("Player HP: " + currentHP);
 
         if (currentHP <= 0)
         {

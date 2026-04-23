@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,10 +45,10 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1f;
                 break;
             case GameState.Pause:
-                Time.timeScale = 0f; // Menghentikan game
+                Time.timeScale = 0f;
                 break;
             case GameState.GameOver:
-                Time.timeScale = 0f; // Menghentikan game saat kalah
+                Time.timeScale = 0f;
                 break;
         }
         Debug.Log("State berubah ke: " + newState);
@@ -57,5 +57,12 @@ public class GameManager : MonoBehaviour
     public void GameOver() 
 {
     UpdateState(GameState.GameOver);
+}
+
+public void RestartGame()
+{
+    string namaSceneAktif = SceneManager.GetActiveScene().name;
+
+    SceneManager.LoadScene(namaSceneAktif);
 }
 }
